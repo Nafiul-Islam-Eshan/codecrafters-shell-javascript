@@ -19,6 +19,20 @@ rl.on("line", (command) => {
   else if (command.startsWith("echo ")) {
     console.log(command.slice(5));
   } 
+
+
+  // 3. type command
+  else if(command.startsWith("type ")){
+
+    const commandAfterType = command.slice(5);
+
+    if(commandAfterType === "echo" || "type" || "exit" ){
+      console.log(`${commandAfterType} is a shell builtin`);
+    }
+    else{
+      console.log(`${commandAfterType}: not found`);
+    }
+  }
   
   
   else {
