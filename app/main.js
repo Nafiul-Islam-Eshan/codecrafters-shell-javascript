@@ -8,6 +8,6 @@ const rl = readline.createInterface({
 
 rl.prompt();
 
-r1.on('line' , (command) => {
+rl.on("line", (command) => {
   console.log(`${command}: command not found`);
 });
