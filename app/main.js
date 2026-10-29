@@ -9,20 +9,21 @@ const rl = readline.createInterface({
 rl.prompt();
 
 rl.on("line", (command) => {
-
   // 1. exit command
   if (command === "exit") {
     rl.close();
     return;
   }
 
-
   // 2. echo command
-  if(command.startsWith("echo ")){
+  else if (command.startsWith("echo ")) {
     console.log(command.slice(5));
-    rl.prompt();
-  }
+  } 
   
-  // console.log(`${command}: command not found`);
+  
+  else {
+    console.log(`${command}: command not found`);
+  }
+
   rl.prompt();
 });
