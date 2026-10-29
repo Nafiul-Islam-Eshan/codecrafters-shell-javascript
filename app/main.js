@@ -9,10 +9,10 @@ const rl = readline.createInterface({
 rl.prompt();
 
 rl.on("line", (command) => {
-  console.log(`${command}: command not found`);
-  rl.prompt();
   if (command === "exit") {
     rl.close();
     return;
   }
+  console.log(`${command}: command not found`);
+  rl.prompt();
 });
