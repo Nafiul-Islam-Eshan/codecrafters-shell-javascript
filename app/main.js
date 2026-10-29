@@ -23,6 +23,6 @@ rl.on("line", (command) => {
     rl.prompt();
   }
   
-  console.log(`${command}: command not found`);
+  // console.log(`${command}: command not found`);
   rl.prompt();
 });
