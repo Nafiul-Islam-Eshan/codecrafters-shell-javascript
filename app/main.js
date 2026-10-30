@@ -59,7 +59,7 @@ rl.on("line", (command) => {
     } 
     // Executable command type
     else if (isExecutable) {
-      console.log(`${commandAfterType} is executable`);
+      console.log(`${commandAfterType} is ${isExecutable}`);
     }
     else {
       console.log(`${commandAfterType}: not found`);
