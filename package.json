@@ -1,5 +1,6 @@
 {
   "name": "@codecrafters/build-your-own-shell",
+  "type": "module",
   "version": "1.0.0",
   "description": "Build your own Shell challenge, from CodeCrafters",
   "main": "main.js",
@@ -11,5 +12,8 @@
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {}
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
 }
