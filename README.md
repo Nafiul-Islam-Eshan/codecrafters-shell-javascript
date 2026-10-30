@@ -32,3 +32,44 @@ Note: This section is for stages 2 and beyond.
    `app/main.js`.
 1. Run `codecrafters submit` to submit your solution to CodeCrafters. Test
    output will be streamed to your terminal.
+
+
+   type(command)
+      |
+      v
+Is command a builtin?
+      |
+    YES -------> Print shell builtin
+      |
+     NO
+      |
+      v
+Get PATH environment variable
+      |
+      v
+Split PATH into directories
+      |
+      v
+For each directory
+      |
+      v
+Create full path
+      |
+      v
+Check execute permission
+      |
+   +--+--+
+   |     |
+  YES    NO
+   |     |
+   v     v
+ Print   Continue to
+ path    next directory
+   |
+   v
+  STOP
+
+No executable found?
+      |
+      v
+Print command: not found
