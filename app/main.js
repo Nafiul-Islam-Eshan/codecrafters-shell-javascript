@@ -50,11 +50,11 @@ rl.on("line", (command) => {
   else if (command.startsWith("type ")) {
 
     const commandAfterType = command.slice(5).trim();
-    const buildins = ["echo", "type", "exit"];
+    const builtins = ["echo", "type", "exit"];
     const isExecutable = executableFilePath(commandAfterType)
 
     // buildin command type
-    if (buildins.includes(commandAfterType)) {
+    if (builtins.includes(commandAfterType)) {
       console.log(`${commandAfterType} is a shell builtin`);
     } 
     // Executable command type
