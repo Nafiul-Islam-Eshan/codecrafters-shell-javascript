@@ -19,7 +19,7 @@ const commandLists: Record<string, (cmd: string[]) => void> = {
     const builtin = commandLists.hasOwnProperty(cmd[1]);
 
     if(excecutable || builtin){
-      console.log(`${cmd[1]} is a ${builtin? "shell builtin" : excecutable}`);
+      console.log(`${cmd[1]} is ${builtin? "a shell builtin" : excecutable}`);
     }
 
     else{
