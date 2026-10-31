@@ -2,6 +2,7 @@
 import readline from "node:readline";
 import path from "node:path";
 import fs from "node:fs";
+import { spawnSync } from "node:child_process";
 
 
 const commandLists: Record<string, (cmd: string[]) => void> = {
@@ -24,7 +25,8 @@ const commandLists: Record<string, (cmd: string[]) => void> = {
     else{
       console.log(`${cmd.slice(1).join(" ")}: not found`);
     }
-  }
+  },
+
 }
 
 
@@ -66,6 +68,11 @@ rl.on("line", (command: string) => {
   // Valid command
   if (commandLists.hasOwnProperty(directive)) {
     commandLists[directive]!(inputCommands)
+  }
+
+
+  else if(executableFilePath(directive)){
+    spawnSync(directive, inputCommands.slice(1), { stdio: "inherit" });
   }
 
 
