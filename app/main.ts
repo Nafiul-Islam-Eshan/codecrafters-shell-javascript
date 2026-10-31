@@ -4,6 +4,30 @@ import path from "node:path";
 import fs from "node:fs";
 
 
+const commandLists: Record<string, (cmd: string[]) => void> = {
+
+  exit: () => process.exit(),
+
+  echo: (cmd: string[]) => console.log(cmd.slice(1).join(" ")),
+
+  type: (cmd: string[]) => {
+
+    if(cmd[1] === undefined) return;
+
+    const excecutable = executableFilePath(cmd[1]);
+    const builtin = commandLists.hasOwnProperty(cmd[1]);
+
+    if(excecutable || builtin){
+      console.log(`${cmd[1]} is a ${builtin? "shell builtin" : excecutable}`);
+    }
+
+    else{
+      console.log(`${cmd.slice(1).join(" ")}: not found`);
+    }
+  }
+}
+
+
 
 const executableFilePath = (command: string): string | null => {
 
@@ -13,19 +37,17 @@ const executableFilePath = (command: string): string | null => {
     const fullPath = path.join(directory, command);
 
     try {
-
       fs.accessSync(fullPath, fs.constants.X_OK);
       return fullPath;
-
     }
     catch (error) {
       continue;
-
     }
   }
 
   return null;
 };
+
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -37,41 +59,16 @@ rl.prompt();
 
 rl.on("line", (command: string) => {
 
-  const inputCommands = command.split(" ");
+  const inputCommands: string[] = command.split(" ");
+  const directive = inputCommands[0] ?? '';
 
-  // 1. exit command
-  if (inputCommands[0] === "exit") {
-    process.exit();
-    return;
+
+  // Valid command
+  if (commandLists.hasOwnProperty(directive)) {
+    commandLists[directive]!(inputCommands)
   }
 
-  // 2. echo command
-  else if (inputCommands[0] === "echo") {
-    console.log(inputCommands.slice(1).join(" "));
-  }
 
-  // 3. type command
-  else if (command.startsWith("type ")) {
-
-    const commandAfterType = command.slice(5).trim();
-    const builtins = ["echo", "type", "exit"];
-
-    const isExecutable = executableFilePath(commandAfterType);
-
-    // builtin command type
-    if (builtins.includes(commandAfterType)) {
-      console.log(`${commandAfterType} is a shell builtin`);
-    }
-
-    // Executable command type
-    else if (isExecutable) {
-      console.log(`${commandAfterType} is ${isExecutable}`);
-    }
-
-    else {
-      console.log(`${commandAfterType}: not found`);
-    }
-  }
 
   // Invalid Command
   else {
@@ -80,3 +77,5 @@ rl.on("line", (command: string) => {
 
   rl.prompt();
 });
+
+
